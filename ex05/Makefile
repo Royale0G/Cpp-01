@@ -1,5 +1,5 @@
 SRC = main.cpp harl.cpp
-OBJ = $(SRC:.cpp=.o)
+#OBJ = $(SRC:.cpp=.o)
 CC = c++
 RM = rm -f
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98 -g
@@ -8,11 +8,11 @@ NAME = harl2.0
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $(CPPFLAGS) $(OBJ) -o $(NAME)
+$(NAME): $(SRC)
+	$(CC) $(CPPFLAGS) $(SRC) -o $(NAME)
 
-clean:
-	$(RM) $(OBJ)
+#clean:
+#	$(RM) $(OBJ)
 
 fclean: clean
 	$(RM) $(NAME)
