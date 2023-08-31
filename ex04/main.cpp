@@ -4,23 +4,39 @@
 
 void replace(std::string path, std::string s1, std::string s2){
 	std::ifstream ifs;
-	std::ofstream ofs;
+	std::ofstream ofs(path + ".replace");
 	std::string line;
-	std::string::size_type pos;
+	std::string replace;
+	int new_line = 0;
+	size_t	len;
 
-	ifs.open(path);
-	ofs.open(path + ".replace");
-	if(!ifs.is_open() || !ofs.is_open()){
-		std::cout << "Error: Unable to open file." << std::endl;
+	if(s1 == "" || s2 == ""){
+		std::cout << "Strings can't be empty" << std::endl;
 		return;
 	}
-	while(getline(ifs, line)){
-		while((pos = line.find(s1)) != std::string::npos)
-			line.replace(pos, s1.length(), s2);
-		ofs << line << std::endl;
+	ifs.open(path);
+	if(ifs.is_open()){
+		while (ifs.good()){
+			std::getline(ifs, replace);
+			line.append(replace);
+			if (new_line == 0)
+				new_line = 1;
+			else
+				line.append("\n");
+		}
 	}
-	ifs.close();
-	ofs.close();
+	else{
+		std::cout << "Can't open the file" << std::endl;
+		return;
+	}
+	while(line[line.find(s1)] != '\0' && len >= 0){
+		len = line.find(s1);
+		if (len >= 0){
+			line.erase(len, s1.length());
+			line.insert(len, s2);
+		}
+	}
+	ofs << line;
 }
 
 
